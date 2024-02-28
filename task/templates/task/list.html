@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block content%}
+
+<h3>TASK LISTS</h3>
+<hr />
+
+<div class="row">
+  {% for item in data %}
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body shadow-sm">
+        <h5 class="card-title">TASK ID #{{ item.id }}</h5>
+        <p class="card-text">Assign Date : <b>{{ item.assign_date | date:"d M Y" }}</b></p>
+        {% if item.description %}
+        <p class="card-text mt-2">{{ item.description }}</p>
+        {% endif %} {% for cat in item.category.all %}
+
+        <span
+          class="badge bg-secondary me-3 rounded-pill {% if forloop.last %}ms-3{% else %}me-3{% endif %}"
+          >{{ cat.name }}</span
+        >
+        {% endfor %}
+
+        {% if item.is_completed %}
+          <h6 class="text-center mt-3 py-2 bg-danger text-light shadow text-danger"> COMPLETED </h6>
+        {% else %}
+        <div class="row mt-4">
+          <div class="col-md-8">
+            <a href="{% url "edit_task" item.id %}" class="btn shadow btn-warning btn-sm me-2">edit</a>
+            <a href="{% url "delete_task" item.id %}" class="btn shadow btn-danger btn-sm">delete</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock%}

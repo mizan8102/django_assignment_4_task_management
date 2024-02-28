@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block content%}
+
+<h3>CATEGORY LISTS</h3>
+<hr />
+<div class="table-responsive">
+  <table class="table table-bordered table-sm ">
+    <thead class="bg-info text-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">CATEGORY NAME</th>
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+      <tr>
+        <th scope="row">{{ forloop.counter   }}</th>
+        <td>{{ item.name }}</td>
+        <td>
+            <a href="{% url 'edit_category' item.id %}" class="btn btn-sm btn-warning"> edit</a>
+            <a href="{% url 'delete_category' item.id %}" class="btn btn-sm btn-danger"> delete</a>
+          
+        </td>
+      
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock%}
